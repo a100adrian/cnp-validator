@@ -43,6 +43,18 @@ class CnpValidator implements CnpValidatorInterface
             }
         }
     }
+
+    private function isValidFormat(string $cnp): bool
+    {
+
+        $regex = "/^[0-9]{".self::LENGTH."}+$/";
+
+        if(preg_match($regex, $cnp)){
+            return true;
+        }
+
+        return false;
+    }
     
     private function splitCnp(string $cnp): array
     {
@@ -55,18 +67,6 @@ class CnpValidator implements CnpValidatorInterface
             'NNN'   => intval(substr($cnp, self::SUBSTRING_NNN[0], self::SUBSTRING_NNN[1])),
             'C'     => intval(substr($cnp, self::SUBSTRING_C[0]))
         ];
-    }
-
-    private function isValidFormat(string $cnp): bool
-    {
-
-        $regex = "/^[0-9]{".self::LENGTH."}+$/";
-
-        if(preg_match($regex, $cnp)){
-            return true;
-        }
-
-        return false;
     }
 
     private function isValidDateOfBirth(int $s, int $day, int $month, int $year, string $countyCode): bool
