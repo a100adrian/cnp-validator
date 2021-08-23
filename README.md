@@ -5,7 +5,6 @@ php index.php 1850121160018
 CNP is Valid
 
 Gender: male 
-
 Type: Generation 2
 Place of birth: Dolj
 Date of birth: 21-1-1985
