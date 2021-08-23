@@ -16,7 +16,7 @@ class Application implements ApplicationInterface
 
     public function isCnpValid(string $cnp): bool
     {
-       return $this->cnpValidator->validate($cnp);
+       return $this->cnpValidator->isCnpValid($cnp);
     }
 
 
