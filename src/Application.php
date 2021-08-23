@@ -5,7 +5,7 @@ namespace App\src;
 use App\src\Validators\CnpValidator;
 use App\src\Validators\CnpValidatorInterface;
 
-class Application
+class Application implements ApplicationInterface
 {
     private CnpValidatorInterface $validator;
 
