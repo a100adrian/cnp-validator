@@ -4,17 +4,6 @@ namespace App\src\Validators;
 
 class CnpValidator implements CnpValidatorInterface
 {
-    //private array $response = ['message' => "CNP is Invalid"];
-
-//    public function check(string $cnp): array
-//    {
-//        if($this->validate($this->trimCnp($cnp))){
-//            $this->response = ['message' => "CNP is valid"];
-//        }
-//
-//        return $this->response;
-//    }
-
     public function isCnpValid(string $cnp): bool
     {
         if($this->isValidFormat($cnp)){
@@ -31,14 +20,6 @@ class CnpValidator implements CnpValidatorInterface
                         substr($cnp, self::SUBSTRING_TWELVE_DIGITS[0], self::SUBSTRING_TWELVE_DIGITS[1])
                     )){
                         return true;
-//                        $this->response = [
-//                            'message' => "CNP is Valid",
-//                            'info' => $this->getBirthInfo(
-//                                $splitArr['S'], $splitArr['ZZ'],
-//                                $splitArr['LL'], $splitArr['AA'],
-//                                $splitArr['JJ']
-//                            )
-//                        ];
                     }
                 }
             }
