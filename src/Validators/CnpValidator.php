@@ -44,6 +44,14 @@ class CnpValidator implements CnpValidatorInterface
         }
     }
 
+    private function trimCnp(string $cnp): string
+    {
+        $cnp = str_replace(' ', '', $cnp);
+        $cnp = str_replace('-', '', $cnp);
+
+        return str_replace('.', '', $cnp);
+    }
+    
     private function isValidFormat(string $cnp): bool
     {
 
@@ -113,6 +121,16 @@ class CnpValidator implements CnpValidatorInterface
         return null;
     }
     
+    private function getCounty(string $countyCode): ?string
+    {
+        foreach(self::JJ as $key => $county){
+            if($key == $countyCode){
+                return $county;
+            }
+        }
+        return null;
+    }
+    
     private function isValidControlNumber(int $lastChar, int $controlNumber): bool
     {
         if($lastChar === $controlNumber){
@@ -138,23 +156,5 @@ class CnpValidator implements CnpValidatorInterface
         }
 
         return $k;
-    }
-
-    private function getCounty(string $countyCode): ?string
-    {
-        foreach(self::JJ as $key => $county){
-            if($key == $countyCode){
-                return $county;
-            }
-        }
-        return null;
-    }
-
-    private function trimCnp(string $cnp): string
-    {
-        $cnp = str_replace(' ', '', $cnp);
-        $cnp = str_replace('-', '', $cnp);
-
-        return str_replace('.', '', $cnp);
     }
 }
