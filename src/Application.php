@@ -11,12 +11,12 @@ class Application
 
     public function __construct()
     {
-        $this->validator = new CnpValidator();
+        $this->cnpValidator = new CnpValidator();
     }
 
     public function isCnpValid(string $cnp): bool
     {
-       return $this->validator->validate($cnp);
+       return $this->cnpValidator->validate($cnp);
     }
 
 
