@@ -83,6 +83,36 @@ class CnpValidator implements CnpValidatorInterface
         return false;
     }
 
+    private function getBirthInfo(int $s, int $day, int $month, int $year, int $countyCode): ?array
+    {
+        foreach (self::S as $type => $value)
+        {
+            $genders = $value['gender'];
+            $yearRanges = $value['year_range'];
+
+            foreach ($genders as $key => $gender){
+                if($key == $s
+                    && $year >= intval(substr($yearRanges[0], -2))
+                    && $year <= intval(substr($yearRanges[1], -2))
+                )
+                {
+                    return [
+                        'type' => $type,
+                        'gender' => $gender,
+                        'place_of_birth' => $this->getCounty($countyCode),
+                        'date_of_birth' => [
+                            'day' => $day,
+                            'month' => $month,
+                            'year' => intval(substr($yearRanges[0], 0, 2) . $year)
+                        ]
+                    ];
+                }
+            }
+        }
+
+        return null;
+    }
+    
     private function isValidControlNumber(int $lastChar, int $controlNumber): bool
     {
         if($lastChar === $controlNumber){
@@ -117,36 +147,6 @@ class CnpValidator implements CnpValidatorInterface
                 return $county;
             }
         }
-        return null;
-    }
-
-    private function getBirthInfo(int $s, int $day, int $month, int $year, int $countyCode): ?array
-    {
-        foreach (self::S as $type => $value)
-        {
-            $genders = $value['gender'];
-            $yearRanges = $value['year_range'];
-
-            foreach ($genders as $key => $gender){
-                if($key == $s
-                    && $year >= intval(substr($yearRanges[0], -2))
-                    && $year <= intval(substr($yearRanges[1], -2))
-                )
-                {
-                    return [
-                        'type' => $type,
-                        'gender' => $gender,
-                        'place_of_birth' => $this->getCounty($countyCode),
-                        'date_of_birth' => [
-                            'day' => $day,
-                            'month' => $month,
-                            'year' => intval(substr($yearRanges[0], 0, 2) . $year)
-                        ]
-                    ];
-                }
-            }
-        }
-
         return null;
     }
 
