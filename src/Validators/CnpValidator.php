@@ -4,42 +4,47 @@ namespace App\src\Validators;
 
 class CnpValidator implements CnpValidatorInterface
 {
-    private array $response = ['message' => "CNP is Invalid"];
+    //private array $response = ['message' => "CNP is Invalid"];
 
-    public function check(string $cnp): array
-    {
-        $this->validate($this->trimCnp($cnp));
+//    public function check(string $cnp): array
+//    {
+//        if($this->validate($this->trimCnp($cnp))){
+//            $this->response = ['message' => "CNP is valid"];
+//        }
+//
+//        return $this->response;
+//    }
 
-        return $this->response;
-    }
-
-    private function validate(string $cnp): void
+    public function isCnpValid(string $cnp): bool
     {
         if($this->isValidFormat($cnp)){
             $splitArr = $this->splitCnp($cnp);
             if($this->isValidDateOfBirth(
                 $splitArr['S'], $splitArr['ZZ'],
-                $splitArr['LL'], $splitArr['AA'], 
+                $splitArr['LL'], $splitArr['AA'],
                 $splitArr['JJ'])
             )
             {
                 if($this->getCounty($splitArr['JJ']) !== null){
                     if($this->isValidControlNumber(
                         $splitArr['C'],
-                            substr($cnp, self::SUBSTRING_TWELVE_DIGITS[0], self::SUBSTRING_TWELVE_DIGITS[1])
+                        substr($cnp, self::SUBSTRING_TWELVE_DIGITS[0], self::SUBSTRING_TWELVE_DIGITS[1])
                     )){
-                        $this->response = [
-                            'message' => "CNP is Valid",
-                            'info' => $this->getBirthInfo(
-                                $splitArr['S'], $splitArr['ZZ'],
-                                $splitArr['LL'], $splitArr['AA'],
-                                $splitArr['JJ']
-                            )
-                        ];
+                        return true;
+//                        $this->response = [
+//                            'message' => "CNP is Valid",
+//                            'info' => $this->getBirthInfo(
+//                                $splitArr['S'], $splitArr['ZZ'],
+//                                $splitArr['LL'], $splitArr['AA'],
+//                                $splitArr['JJ']
+//                            )
+//                        ];
                     }
                 }
             }
         }
+
+        return false;
     }
 
     private function trimCnp(string $cnp): string
@@ -49,7 +54,7 @@ class CnpValidator implements CnpValidatorInterface
 
         return str_replace('.', '', $cnp);
     }
-    
+
     private function isValidFormat(string $cnp): bool
     {
 
@@ -61,7 +66,7 @@ class CnpValidator implements CnpValidatorInterface
 
         return false;
     }
-    
+
     private function splitCnp(string $cnp): array
     {
         return [
@@ -118,7 +123,7 @@ class CnpValidator implements CnpValidatorInterface
 
         return null;
     }
-    
+
     private function getCounty(string $countyCode): ?string
     {
         foreach(self::JJ as $key => $county){
@@ -128,7 +133,7 @@ class CnpValidator implements CnpValidatorInterface
         }
         return null;
     }
-    
+
     private function isValidControlNumber(int $lastChar, int $twelveDigits): bool
     {
         if($lastChar === $this->getControlNumber($twelveDigits)){
