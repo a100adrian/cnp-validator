@@ -4,7 +4,7 @@ namespace App\src\Validators;
 
 class CnpValidator implements CnpValidatorInterface
 {
-    public function validate(string $cnp): bool
+    public function isCnpValid(string $cnp): bool
     {
         if($this->isValidFormat($cnp)){
             $splitArr = $this->splitCnp($cnp);
