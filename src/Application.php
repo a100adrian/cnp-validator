@@ -16,7 +16,7 @@ class Application
 
     public function check(string $cnp): string
     {
-        if($this->validator->isCnpValid($cnp)){
+        if($this->validator->verifyCnp($cnp)){
             return "CNP is Valid";
         }
         return "CNP is Invalid";
