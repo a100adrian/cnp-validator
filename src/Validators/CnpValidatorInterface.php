@@ -4,5 +4,5 @@ namespace App\src\Validators;
 
 interface CnpValidatorInterface extends ConstantsInterface
 {
-    public function validate(string $cnp): bool;
+    public function isCnpValid(string $cnp): bool;
 }
