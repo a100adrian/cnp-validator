@@ -7,7 +7,7 @@ use App\src\Validators\CnpValidatorInterface;
 
 class Application
 {
-    private CnpValidator $validator;
+    private CnpValidatorInterface $validator;
 
     public function __construct()
     {
