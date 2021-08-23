@@ -27,5 +27,5 @@ Type: Foreigner with residency
 Place of birth: Bihor
 Date of birth: 5-8-1921
 
-php index.php 6219005058663
+php index.php 6219005058663 
 CNP is Invalid
