@@ -4,7 +4,7 @@ require __DIR__ . "/vendor/autoload.php";
 
 use App\src\Application;
 
-$cnpApp = new Application();
+$app = new Application();
 
-var_dump($cnpApp->isCnpValid($argv[1]));
+var_dump($app->isCnpValid($argv[1]));
 
