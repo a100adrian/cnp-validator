@@ -6,5 +6,5 @@ use App\src\Application;
 
 $cnpApp = new Application();
 
-echo $cnpApp->verifyCnp($argv[1]);
+var_dump($cnpApp->isCnpValid($argv[1]));
 
