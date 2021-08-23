@@ -26,9 +26,7 @@ class CnpValidator implements CnpValidatorInterface
                 if($this->getCounty($splitArr['JJ']) !== null){
                     if($this->isValidControlNumber(
                         $splitArr['C'],
-                        $this->getControlNumber(
-                            intval(substr($cnp, self::SUBSTRING_TWELVE_DIGITS[0], self::SUBSTRING_TWELVE_DIGITS[1]))
-                        )
+                            substr($cnp, self::SUBSTRING_TWELVE_DIGITS[0], self::SUBSTRING_TWELVE_DIGITS[1])
                     )){
                         $this->response = [
                             'message' => "CNP is Valid",
@@ -131,9 +129,9 @@ class CnpValidator implements CnpValidatorInterface
         return null;
     }
     
-    private function isValidControlNumber(int $lastChar, int $controlNumber): bool
+    private function isValidControlNumber(int $lastChar, int $twelveDigits): bool
     {
-        if($lastChar === $controlNumber){
+        if($lastChar === $this->getControlNumber($twelveDigits)){
             return true;
         }
 
