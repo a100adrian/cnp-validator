@@ -19,7 +19,8 @@ class CnpValidator implements CnpValidatorInterface
             $splitArr = $this->splitCnp($cnp);
             if($this->isValidDateOfBirth(
                 $splitArr['S'], $splitArr['ZZ'],
-                $splitArr['LL'], $splitArr['AA'], $splitArr['JJ'])
+                $splitArr['LL'], $splitArr['AA'], 
+                $splitArr['JJ'])
             )
             {
                 if($this->getCounty($splitArr['JJ']) !== null){
@@ -41,6 +42,19 @@ class CnpValidator implements CnpValidatorInterface
                 }
             }
         }
+    }
+    
+    private function splitCnp(string $cnp): array
+    {
+        return [
+            'S'     => intval(substr($cnp, self::SUBSTRING_S[0], self::SUBSTRING_S[1])),
+            'AA'    => intval(substr($cnp, self::SUBSTRING_AA[0], self::SUBSTRING_AA[1])),
+            'LL'    => intval(substr($cnp, self::SUBSTRING_LL[0], self::SUBSTRING_LL[1])),
+            'ZZ'    => intval(substr($cnp, self::SUBSTRING_ZZ[0], self::SUBSTRING_ZZ[1])),
+            'JJ'    => substr($cnp, self::SUBSTRING_JJ[0], self::SUBSTRING_JJ[1]),
+            'NNN'   => intval(substr($cnp, self::SUBSTRING_NNN[0], self::SUBSTRING_NNN[1])),
+            'C'     => intval(substr($cnp, self::SUBSTRING_C[0]))
+        ];
     }
 
     private function isValidFormat(string $cnp): bool
@@ -142,18 +156,5 @@ class CnpValidator implements CnpValidatorInterface
         $cnp = str_replace('-', '', $cnp);
 
         return str_replace('.', '', $cnp);
-    }
-
-    private function splitCnp(string $cnp): array
-    {
-        return [
-            'S'     => intval(substr($cnp, self::SUBSTRING_S[0], self::SUBSTRING_S[1])),
-            'AA'    => intval(substr($cnp, self::SUBSTRING_AA[0], self::SUBSTRING_AA[1])),
-            'LL'    => intval(substr($cnp, self::SUBSTRING_LL[0], self::SUBSTRING_LL[1])),
-            'ZZ'    => intval(substr($cnp, self::SUBSTRING_ZZ[0], self::SUBSTRING_ZZ[1])),
-            'JJ'    => substr($cnp, self::SUBSTRING_JJ[0], self::SUBSTRING_JJ[1]),
-            'NNN'   => intval(substr($cnp, self::SUBSTRING_NNN[0], self::SUBSTRING_NNN[1])),
-            'C'     => intval(substr($cnp, self::SUBSTRING_C[0]))
-        ];
     }
 }
