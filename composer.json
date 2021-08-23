@@ -1,0 +1,16 @@
+{
+    "name": "andre/cnp-validator",
+    "description": "Validates cnp number",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrei Adrian",
+            "email": "andrei.adrian.21@protonmail.com"
+        }
+    ],
+    "require": {}
+}
