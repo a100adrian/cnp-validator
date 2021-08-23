@@ -6,16 +6,16 @@ class CnpValidator implements CnpValidatorInterface
 {
     public function isCnpValid(string $cnp): bool
     {
-        if($this->isValidFormat($cnp)){
+        if($this->isFormat($cnp)){
             $splitArr = $this->splitCnp($cnp);
-            if($this->isValidDateOfBirth(
+            if($this->isDateOfBirthValid(
                 $splitArr['S'], $splitArr['ZZ'],
                 $splitArr['LL'], $splitArr['AA'],
                 $splitArr['JJ'])
             )
             {
                 if($this->getCounty($splitArr['JJ']) !== null){
-                    if($this->isValidControlNumber(
+                    if($this->isControlNumberValid(
                         $splitArr['C'],
                         substr($cnp, self::SUBSTRING_TWELVE_DIGITS[0], self::SUBSTRING_TWELVE_DIGITS[1])
                     )){
@@ -36,7 +36,7 @@ class CnpValidator implements CnpValidatorInterface
         return str_replace('.', '', $cnp);
     }
 
-    private function isValidFormat(string $cnp): bool
+    private function isFormat(string $cnp): bool
     {
 
         $regex = "/^[0-9]{".self::LENGTH."}+$/";
@@ -61,7 +61,7 @@ class CnpValidator implements CnpValidatorInterface
         ];
     }
 
-    private function isValidDateOfBirth(int $s, int $day, int $month, int $year, string $countyCode): bool
+    private function isDateOfBirthValid(int $s, int $day, int $month, int $year, string $countyCode): bool
     {
         $dateOfBirthInfo = $this->getBirthInfo($s, $day, $month, $year, $countyCode);
         if(checkdate($dateOfBirthInfo['date_of_birth']['month'],
@@ -115,7 +115,7 @@ class CnpValidator implements CnpValidatorInterface
         return null;
     }
 
-    private function isValidControlNumber(int $lastChar, int $twelveDigits): bool
+    private function isControlNumberValid(int $lastChar, int $twelveDigits): bool
     {
         if($lastChar === $this->getControlNumber($twelveDigits)){
             return true;
