@@ -6,7 +6,7 @@ class CnpValidator implements CnpValidatorInterface
 {
     public function isCnpValid(string $cnp): bool
     {
-        if($this->isFormat($cnp)){
+        if($this->isFormat($this->trimCnp($cnp))){
             $splitArr = $this->splitCnp($cnp);
             if($this->isDateOfBirthValid(
                 $splitArr['S'], $splitArr['ZZ'],
